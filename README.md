@@ -58,5 +58,61 @@ https://www.linkedin.com/posts/anurag-dalsaniya-48a48b254_fiverrclone-reactjs-no
 Run the application:
 npm start
 
+##  Local Setup (Docker)
+
+Follow these steps to run the project locally:
+
+### Setup environment variables
+
+Copy example env files and update values:
+
+```bash
+cp api/.env.example api/.env
+cp client/.env.example client/.env
+```
+
+Update the following:
+
+#### 📌 Backend (`/api/.env`)
+
+* `MONGO=mongodb://mongo:27017/fiverr`
+* `JWT_KEY=your_secret_key`
+* `STRIPE=your_stripe_secret_key`
+
+#### 📌 Frontend (`/client/.env`)
+
+* `REACT_APP_API_URL=http://localhost:8000`
+
+---
+
+###  Add required credentials
+
+* Add your **Cloudinary credentials** (frontend)
+* Add your **Stripe secret key** (backend)
+* Add your **Stripe client key** (frontend)
+
+---
+
+###  Run the project
+
+```bash
+docker-compose up --build
+```
+
+---
+
+### Open in browser 🌐
+
+* Frontend → http://localhost:3000
+---
+
+### ✅ Notes
+
+* No need to install Node.js or MongoDB locally
+* All services run inside Docker
+* Make sure Docker is running before starting
+
+---
+
 
 Make sure to replace placeholder values like `yourusername`, `your_mongodb_connection_string`, `your_stripe_api_key`, `your_cloudinary_api_key`, and `your_cloudinary_api_secret` with the actual values for your project. Additionally, you might want to include additional sections like "Deployment," "Testing," or any other relevant information specific to your project.
