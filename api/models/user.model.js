@@ -28,10 +28,6 @@ const userSchema = new Schema({
     type:String,
     require:false,
   },
-  password:{
-    type:String,
-    require:true,
-  },
   desc:{
     type:String,
     require:false,
@@ -45,6 +41,11 @@ const userSchema = new Schema({
     type:Boolean,
     default:false,
   },
+  isAdmin:{
+    type:Boolean,
+    default:false,
+    require:true,
+  }
 },{
 timestamps:true
 });

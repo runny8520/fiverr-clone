@@ -5,7 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import newRequest from "../../utils/newRequest";
 import { useParams } from "react-router-dom";
 import CheckoutForm from "../../components/checkOutForm/CheckOutForm";
-const stripePromise = await loadStripe(
+const stripePromise = loadStripe(
   "your key"
   );
 

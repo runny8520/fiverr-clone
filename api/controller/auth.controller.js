@@ -1,12 +1,33 @@
 import User from '../models/user.model.js'
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import Jwt from 'jsonwebtoken';
 import createError from '../utils/createError.js';
+import crypto from "crypto";
 export async function register(req, res, next) {
     try {
-        const hash = bcrypt.hashSync(req.body.password, 5);
+        const {
+            username,
+            email,
+            password,
+            img,
+            country,
+            phone,
+            desc,
+            isSeller,
+        } = req.body;
+        if (!username || !email || !password || !country) {
+            return next(createError(400, "Missing required fields"));
+        }
+        const hash = bcrypt.hashSync(password, 10);
         const newUser = new User({
-            ...req.body,
+            username,
+            email,
+            img,
+            country,
+            phone,
+            desc,
+            isSeller: Boolean(isSeller),
+            isAdmin: process.env.ADMIN_EMAIL ? email === process.env.ADMIN_EMAIL : false,
             password: hash,
         });
         await newUser.save();
@@ -26,18 +47,35 @@ export const login = async (req, res, next) => {
         const token = Jwt.sign({
             id: user._id,
             isSeller: user.isSeller,
+            isAdmin: user.isAdmin,
         }, process.env.JWT_KEY);
+        const csrfToken = crypto.randomBytes(32).toString("hex");
         const { password, ...info } = user._doc;
         res.cookie("accessToken", token,
-            { httpOnly: true }
-        ).status(200).send(info);
+            {
+                httpOnly: true,
+                sameSite: "lax",
+                secure: process.env.NODE_ENV === "production",
+            }
+        )
+        .cookie("csrfToken", csrfToken, {
+            httpOnly: false,
+            sameSite: "lax",
+            secure: process.env.NODE_ENV === "production",
+        })
+        .status(200).send(info);
     } catch (error) {
         next(error);
     }
 }
 export const logout = async (req, res) => {
     res.clearCookie("accessToken", {
-        sameSite: "none",
-        secure: true
-    }).status(200).send("User has been logout");
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production"
+    })
+    .clearCookie("csrfToken", {
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production"
+    })
+    .status(200).send("User has been logout");
 }

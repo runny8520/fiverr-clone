@@ -48,7 +48,7 @@ const Orders = () => {
                     {data.map((order) => (
                         <tr key={order._id}>
                             <td>
-                                <img src={data.img} alt="" className="img" />
+                                <img src={order.img} alt="" className="img" />
                             </td>
                             <td>{order.title}</td>
                             <td>{order.price}</td>

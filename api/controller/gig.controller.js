@@ -19,12 +19,13 @@ export const createGig = async (req, res, next) => {
 export const deleteGig = async (req, res, next) => {
   try {
     const gig = await Gig.findById(req.params.id);
-    if (gig.userId !== req.userId) next(403, 'you can delete your gig');
+    if (!gig) return next(createError(404, "Gig not found"));
+    if (gig.userId !== req.userId && !req.isAdmin) return next(createError(403, 'you can delete your gig'));
+    await Gig.findByIdAndDelete(req.params.id);
+    res.status(200).send('gig has been deleted');
   } catch (err) {
     next(err);
   }
-  await Gig.findOneAndDelete(req.params.id);
-  res.status(200).send('gig has been deleted');
 };
 
 export const getGig = async (req, res, next) => {

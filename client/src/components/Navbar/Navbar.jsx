@@ -122,6 +122,7 @@ const Navbar = () => {
                                                 </>
                                             )
                                         }
+                                        {current_user.isAdmin && <Link className='link' to='/admin'>Admin Panel</Link>}
                                         <Link className='link' key={9996} to='/orders'>Orders</Link>
                                         <Link className='link' key={9995} to='/messages'>Messages</Link>
                                         <Link className='link' key={9993} onClick={handleLogout}>Logout</Link>
