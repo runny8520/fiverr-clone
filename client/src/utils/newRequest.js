@@ -6,4 +6,16 @@ const newRequest=axios.create({
     withCredentials:true,
 })
 
+newRequest.interceptors.request.use((config) => {
+    const csrfToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("csrfToken="))
+        ?.split("=")[1];
+
+    if (csrfToken && config.method && !["get", "head", "options"].includes(config.method)) {
+        config.headers["x-csrf-token"] = csrfToken;
+    }
+    return config;
+});
+
 export default newRequest;

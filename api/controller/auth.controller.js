@@ -1,7 +1,8 @@
 import User from '../models/user.model.js'
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import Jwt from 'jsonwebtoken';
 import createError from '../utils/createError.js';
+import crypto from "crypto";
 export async function register(req, res, next) {
     try {
         const {
@@ -48,6 +49,7 @@ export const login = async (req, res, next) => {
             isSeller: user.isSeller,
             isAdmin: user.isAdmin,
         }, process.env.JWT_KEY);
+        const csrfToken = crypto.randomBytes(32).toString("hex");
         const { password, ...info } = user._doc;
         res.cookie("accessToken", token,
             {
@@ -55,7 +57,13 @@ export const login = async (req, res, next) => {
                 sameSite: "lax",
                 secure: process.env.NODE_ENV === "production",
             }
-        ).status(200).send(info);
+        )
+        .cookie("csrfToken", csrfToken, {
+            httpOnly: false,
+            sameSite: "lax",
+            secure: process.env.NODE_ENV === "production",
+        })
+        .status(200).send(info);
     } catch (error) {
         next(error);
     }
@@ -64,5 +72,10 @@ export const logout = async (req, res) => {
     res.clearCookie("accessToken", {
         sameSite: "lax",
         secure: process.env.NODE_ENV === "production"
-    }).status(200).send("User has been logout");
+    })
+    .clearCookie("csrfToken", {
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production"
+    })
+    .status(200).send("User has been logout");
 }
