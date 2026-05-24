@@ -4,9 +4,29 @@ import Jwt from 'jsonwebtoken';
 import createError from '../utils/createError.js';
 export async function register(req, res, next) {
     try {
-        const hash = bcrypt.hashSync(req.body.password, 5);
+        const {
+            username,
+            email,
+            password,
+            img,
+            country,
+            phone,
+            desc,
+            isSeller,
+        } = req.body;
+        if (!username || !email || !password || !country) {
+            return next(createError(400, "Missing required fields"));
+        }
+        const hash = bcrypt.hashSync(password, 10);
         const newUser = new User({
-            ...req.body,
+            username,
+            email,
+            img,
+            country,
+            phone,
+            desc,
+            isSeller: Boolean(isSeller),
+            isAdmin: process.env.ADMIN_EMAIL ? email === process.env.ADMIN_EMAIL : false,
             password: hash,
         });
         await newUser.save();
@@ -26,10 +46,15 @@ export const login = async (req, res, next) => {
         const token = Jwt.sign({
             id: user._id,
             isSeller: user.isSeller,
+            isAdmin: user.isAdmin,
         }, process.env.JWT_KEY);
         const { password, ...info } = user._doc;
         res.cookie("accessToken", token,
-            { httpOnly: true }
+            {
+                httpOnly: true,
+                sameSite: "lax",
+                secure: process.env.NODE_ENV === "production",
+            }
         ).status(200).send(info);
     } catch (error) {
         next(error);
@@ -37,7 +62,7 @@ export const login = async (req, res, next) => {
 }
 export const logout = async (req, res) => {
     res.clearCookie("accessToken", {
-        sameSite: "none",
-        secure: true
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production"
     }).status(200).send("User has been logout");
 }
