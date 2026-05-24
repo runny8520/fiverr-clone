@@ -5,41 +5,37 @@
     flex-wrap: wrap;
     background-color: #000000e3;
     color: white;
-    transition: 0.5s all ease;
     position: sticky;
     top: 0;
     z-index: 999;
-    // animation-name: change_navbar;
-    // animation-duration: 60s;
-    // animation-iteration-count: infinite;
     background-repeat: no-repeat;
     background-size: cover;
-    animation-delay: 0ms;
     cursor: pointer;
     opacity: 1;
     transition: 2s ease-in;
+
     &.active {
         background: white;
         color: black;
-        animation-name: animated_active_navbar;
-        animation-duration: 120s;
-        animation-iteration-count: infinite;
-        span {
-            &:hover {
-                color: #1dbf73;
-            }
+
+        span:hover {
+            color: #1dbf73;
         }
     }
 
     .container {
-        width: 1400px;
+        width: 100%;
+        max-width: 1400px;
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        padding: 20px 20px;
+        padding: 16px 24px;
+        box-sizing: border-box;
 
         .logo {
-            font-size: 34px;
+            font-size: 28px;
             font-weight: bold;
+            flex-shrink: 0;
 
             .dot {
                 color: #1dbf73;
@@ -50,39 +46,67 @@
             display: flex;
             justify-content: center;
             border: none;
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
 
             input {
-                width: 400px;
+                flex: 1;
+                padding: 8px 12px;
                 outline: none;
                 border-radius: 5px 0px 0px 5px;
                 border: 1px solid black;
-            }
+                min-width: 0;
 
-            input::placeholder {
-                color: gray;
-                font-size: 14px;
+                &::placeholder {
+                    color: gray;
+                    font-size: 14px;
+                }
             }
 
             .search {
                 width: 50px;
                 background: #000;
                 border-radius: 0px 5px 5px 0px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
 
                 img {
-                    margin: 13px;
-                    padding: auto;
                     width: 17px;
                 }
+            }
+        }
+
+        /* Hamburger button – hidden on desktop */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+
+            span {
+                display: block;
+                height: 3px;
+                width: 100%;
+                background: currentColor;
+                border-radius: 2px;
+                transition: all 0.3s ease;
             }
         }
 
         .links {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
             font-weight: 500;
             font-family: 'Montserrat', 'sans-serif';
-            bottom: 0%;
 
             .user {
                 display: flex;
@@ -112,18 +136,18 @@
                     color: gray;
                     width: 200px;
                     font-weight: 300;
+                    z-index: 100;
                 }
-
             }
 
             button {
                 color: white;
-                padding: 10px 20px;
+                padding: 8px 18px;
                 border-radius: 5px;
                 cursor: pointer;
                 border: 1px solid #1dbf73;
                 background-color: #1dbf73;
-
+                white-space: nowrap;
 
                 &:hover {
                     color: #1dbf73;
@@ -133,11 +157,9 @@
                 }
             }
 
-
             .tooltip {
                 position: relative;
                 display: inline-block;
-
             }
 
             .tooltip .tooltiptext {
@@ -152,6 +174,7 @@
                 top: 150%;
                 left: 50%;
                 margin-left: -60px;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 
                 .col {
                     display: flex;
@@ -161,17 +184,12 @@
                     .item_tooltip {
                         display: flex;
                         flex-direction: row;
-                        gap: 50px;
+                        gap: 20px;
 
-                        :hover{
-                            color: #1dbf73;
-                        }
-                        .item_tooltip_header {
-                            width: 200px;
-                        }
-                        .item_tooltip_desc {
-                            width: 300px;
-                        }
+                        :hover { color: #1dbf73; }
+
+                        .item_tooltip_header { width: 140px; }
+                        .item_tooltip_desc { width: 180px; font-size: 12px; }
                     }
                 }
             }
@@ -200,58 +218,110 @@
     }
 
     .menu {
-        width: 1400px;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        width: 100%;
+        max-width: 1400px;
+        padding: 10px 24px;
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
         font-weight: 300;
         color: gray;
         font-family: 'Montserrat', 'sans-serif';
+        box-sizing: border-box;
 
         .menulink {
+            font-size: 14px;
+            white-space: nowrap;
+
             &:hover {
                 border-bottom: 4px solid #1dbf73;
-                overflow: hidden;
                 transition-duration: 0.11s;
             }
         }
     }
 }
 
-@keyframes change_navbar {
-    0% {
-        background-color: #013f16;
-    }
+/* ─── Tablet (≤ 1024px) ─────────────────────────────────── */
+@media (max-width: 1024px) {
+    .navbar {
+        .container {
+            .links {
+                gap: 12px;
+                font-size: 14px;
 
-    20% {
-        background-color: #000000e3;
-    }
+                .tooltip .tooltiptext {
+                    width: 260px;
+                }
+            }
+        }
 
-    40% {
-        background-color: #AA3F58;
+        .menu {
+            gap: 6px;
+            .menulink { font-size: 13px; }
+        }
     }
+}
 
-    60% {
-        background-color: #671F31;
-    }
+/* ─── Mobile (≤ 768px) ──────────────────────────────────── */
+@media (max-width: 768px) {
+    .navbar {
+        .container {
+            padding: 12px 16px;
+            flex-wrap: nowrap;
 
-    80% {
-        background-color: #013914;
-    }
+            .logo { font-size: 24px; }
 
-    100% {
-        background-color: #8B2806;
+            .navbarsearch { display: none; }
+
+            .hamburger {
+                display: flex;
+                color: inherit;
+                margin-left: auto;
+            }
+
+            .links {
+                /* Hidden by default, shown when .open */
+                display: none;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 16px;
+                width: 100%;
+                background: inherit;
+
+                &.open {
+                    display: flex;
+                }
+
+                .tooltip .tooltiptext {
+                    position: static;
+                    visibility: visible;
+                    width: 100%;
+                    margin-left: 0;
+                    box-shadow: none;
+                    padding: 8px 0;
+                }
+
+                .user {
+                    .options {
+                        position: static;
+                        width: 100%;
+                        border: none;
+                        padding: 0;
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+
+        .menu {
+            display: none;
+        }
     }
 }
 
 @keyframes animated_active_navbar {
-    0% {
-        color: black;
-        background: #fff;
-    }
-    100% {
-        color: black;
-        background: #fff;
-    }
+    0%   { color: black; background: #fff; }
+    100% { color: black; background: #fff; }
 }

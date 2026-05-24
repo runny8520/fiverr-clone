@@ -50,7 +50,7 @@ const GigSchema = new Schema({
     type:Number,
     require:true
   },
-  rivisonNumber:{
+  revisionNumber:{
     type:Number,
     require:true
   },

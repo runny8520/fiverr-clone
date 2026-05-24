@@ -1,0 +1,84 @@
+@keyframes shimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position: 600px 0; }
+}
+
+.shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 1200px 100%;
+    animation: shimmer 1.4s infinite linear;
+    border-radius: 4px;
+}
+
+.skeleton-card {
+    width: 324px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    overflow: hidden;
+
+    .skeleton-img {
+        width: 100%;
+        height: 155px;
+    }
+
+    .skeleton-info {
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .skeleton-user {
+            width: 120px;
+            height: 26px;
+            border-radius: 13px;
+        }
+
+        .skeleton-line {
+            height: 14px;
+            width: 100%;
+
+            &.short {
+                width: 60%;
+            }
+        }
+    }
+
+    .skeleton-footer {
+        height: 40px;
+        margin: 10px 20px;
+    }
+}
+
+.skeleton-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+
+    .skeleton-cell {
+        height: 18px;
+        width: 80px;
+        border-radius: 4px;
+
+        &.wide {
+            flex: 1;
+        }
+    }
+}
+
+.skeleton-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .skeleton-line {
+        height: 14px;
+        width: 100%;
+
+        &.short {
+            width: 60%;
+        }
+    }
+}

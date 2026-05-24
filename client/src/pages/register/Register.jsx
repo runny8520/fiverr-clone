@@ -8,7 +8,7 @@ const Register = () => {
   const [user, setUser] = useState({
     username: "",
     email: "",
-    passwors: "",
+    password: "",
     img: "",
     country: "",
     isSeller: false,

@@ -1,10 +1,12 @@
 .message {
     display: flex;
     justify-content: center;
-   
+
     .container {
-        width: 1200px;
-        margin: 50px;
+        width: 100%;
+        max-width: 900px;
+        padding: 30px 24px;
+        box-sizing: border-box;
 
         .breadcrumbs {
             font-weight: 300;
@@ -13,27 +15,27 @@
         }
 
         .messages {
-            &::-webkit-scrollbar {
-                width: 12px;              
-              }
-              &::-webkit-scrollbar-thumb {
-                background-color: rgb(135, 135, 135);    
-                border-radius: 20px;      
-                border: .3px solid rgb(226, 226, 225);  
-              }
-            margin: 30px 0px;
-            padding: 50px;
+            margin: 24px 0;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            overflow: scroll;
-            height: 500px;
+            overflow-y: auto;
+            height: 450px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+
+            &::-webkit-scrollbar { width: 8px; }
+            &::-webkit-scrollbar-thumb {
+                background-color: #c0c0c0;
+                border-radius: 4px;
+            }
 
             .item {
                 display: flex;
-                gap: 20px;
-                max-width: 600px;
-                font-size: 18px;
+                gap: 14px;
+                max-width: 70%;
+                font-size: 15px;
 
                 &.owner {
                     flex-direction: row-reverse;
@@ -49,48 +51,78 @@
                 img {
                     border-radius: 50%;
                     object-fit: cover;
-                    width: 40px;
-                    height: 40px;
+                    width: 38px;
+                    height: 38px;
+                    flex-shrink: 0;
                 }
 
                 p {
-                    padding: 20px;
+                    padding: 14px 18px;
                     background: rgb(238, 235, 235);
                     border-radius: 0px 20px 20px 20px;
                     color: gray;
                     font-weight: 300;
+                    line-height: 1.5;
+                    margin: 0;
                 }
             }
         }
-        hr{
+
+        hr {
             height: 0;
             border: 0.5px solid rgb(225, 223, 223);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
+
         .write {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-           
+            align-items: flex-end;
+            gap: 12px;
+
             textarea {
-                width: 80%;
-                height: 100px;
-                padding: 10px;
+                flex: 1;
+                min-height: 80px;
+                padding: 12px;
                 border: 1px solid lightgray;
-                border-radius: 10px ;
-                &:focus{
-                    border:1px solid   rgb(177, 177, 179);
-                }
+                border-radius: 8px;
+                font-size: 14px;
+                resize: vertical;
+
+                &:focus { border: 1px solid #aaa; outline: none; }
             }
-            button{
-                color:white;
+
+            button {
+                color: white;
                 background: #1dbf73;
-                padding: 20px;
-                font-weight: 500;border: none;
-                border-radius: 10px;
+                padding: 14px 20px;
+                font-weight: 500;
+                border: none;
+                border-radius: 8px;
                 cursor: pointer;
-                width: 100px;
+                white-space: nowrap;
+
+                &:hover { background: #19a863; }
             }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .message .container {
+        padding: 16px 12px;
+
+        .messages {
+            height: 340px;
+            padding: 14px;
+
+            .item { max-width: 90%; }
+        }
+
+        .write {
+            flex-direction: column;
+            align-items: stretch;
+
+            button { width: 100%; }
         }
     }
 }

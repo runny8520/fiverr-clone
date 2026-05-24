@@ -6,6 +6,7 @@ const Navbar = () => {
     const [active, setactive] = useState(false);
     const [active1, setactive1] = useState(false);
     const [open, setopen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
     const { pathname } = useLocation();
     const isActive = () => {
         window.scrollY > 0 ? setactive(true) : setactive(false);
@@ -23,14 +24,13 @@ const Navbar = () => {
     }, []);
 
     const current_user = JSON.parse(localStorage.getItem('currentUser'));
-
     const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
             await newRequest.post('/auth/logout');
             localStorage.setItem("currentUser", null);
-            navigate("/")
+            navigate("/");
         } catch (err) {
             console.log(err);
         }
@@ -39,8 +39,21 @@ const Navbar = () => {
     const handlesubmit = () => {
         navigate(`gigs?search=${input}`);
     }
+
+    const categories = [
+        { label: "Graphics & Design", cat: "Graphics & Design" },
+        { label: "Video & Animation", cat: "Video & Animation" },
+        { label: "Writing & Translation", cat: "Writing & Translation" },
+        { label: "AI Services", cat: "AI Services" },
+        { label: "Digital Marketing", cat: "Digital Marketing" },
+        { label: "Music & Audio", cat: "Music & Audio" },
+        { label: "Programming & Tech", cat: "Programming & Tech" },
+        { label: "Business", cat: "Business" },
+        { label: "Lifestyle", cat: "Lifestyle" },
+    ];
+
     return ([
-        <div className={active || pathname !== "/" ? "navbar active" : "navbar "}>
+        <div className={active || pathname !== "/" ? "navbar active" : "navbar "} key="navbar">
             <div className="container">
                 <div className="logo">
                     <Link to='/' className='link'>
@@ -48,15 +61,18 @@ const Navbar = () => {
                     </Link>
                     <span className='dot'>.</span>
                 </div>
-                {active  && <div className="navbarsearch">
+                {active && <div className="navbarsearch">
                     <input type="text" placeholder='what service are you looking for today?' onChange={e => setinput(e.target.value)} />
                     <div className="search">
-                        <img src="/images/search.png" alt="" onClick={handlesubmit} />
+                        <img src="/images/search.png" alt="search" onClick={handlesubmit} />
                     </div>
                 </div>}
-                <div className="links">
-                    <span onClick={()=>navigate('/becomeseller')}>fiverr Business</span>
-                    <span className="tooltip ">Explore
+                <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <div className={`links${menuOpen ? " open" : ""}`}>
+                    <span onClick={() => { navigate('/becomeseller'); setMenuOpen(false); }}>fiverr Business</span>
+                    <span className="tooltip">Explore
                         <span className="tooltiptext">
                             <div className="col">
                                 <div className="item_tooltip">
@@ -76,11 +92,10 @@ const Navbar = () => {
                                     <p className='item_tooltip_desc'>Create your logo instantly</p>
                                 </div>
                             </div>
-                            
                             <div className="col">
                                 <div className="item_tooltip">
                                     <h4 className='item_tooltip_header'>Community</h4>
-                                    <p className='item_tooltip_desc'>Connect with Fiverr’s team and community</p>
+                                    <p className='item_tooltip_desc'>Connect with Fiverr's team and community</p>
                                 </div>
                                 <div className="item_tooltip">
                                     <h4 className='item_tooltip_header'>Podcast</h4>
@@ -98,39 +113,33 @@ const Navbar = () => {
                         </span>
                     </span>
                     <span>
-                        <img src='/images/language.png' alt='' width={'18px'} height={'16px'}
-                            style={{ marginRight: '10px' }}>
-                        </img>
+                        <img src='/images/language.png' alt='language' width={'18px'} height={'16px'} style={{ marginRight: '10px' }} />
                         English
                     </span>
-                    <Link to='/login' className='link' key={333}><span>Sign in</span></Link>
-
-                    {!current_user?.isSeller && <span onClick={e => navigate('/becomeSeller')}>Become a Seller</span>}
-                    {!current_user && <button onClick={e => navigate(`/register`)}>Join</button>}
-                    {
-                        current_user && (
-                            <div className="user" onClick={() => setopen(!open)}>
-                                <img src={current_user.img || '/images/noavtar.jpeg'} alt="" />
-                                <span>{current_user?.username}</span>
-                                {open && (
-                                    <div className="options">
-                                        {
-                                            current_user.isSeller && (
-                                                <>
-                                                    <Link className='link' key={555} to='/mygigs'>Gigs</Link>
-                                                    <Link className='link' key={999} to='/add'>Add New Gig</Link>
-                                                </>
-                                            )
-                                        }
-                                        {current_user.isAdmin && <Link className='link' to='/admin'>Admin Panel</Link>}
-                                        <Link className='link' key={9996} to='/orders'>Orders</Link>
-                                        <Link className='link' key={9995} to='/messages'>Messages</Link>
-                                        <Link className='link' key={9993} onClick={handleLogout}>Logout</Link>
-                                    </div>
-                                )}
-                            </div>
-                        )
-                    }
+                    {!current_user && <Link to='/login' className='link' key={333}><span>Sign in</span></Link>}
+                    {!current_user?.isSeller && <span onClick={() => { navigate('/becomeSeller'); setMenuOpen(false); }}>Become a Seller</span>}
+                    {!current_user && <button onClick={() => { navigate('/register'); setMenuOpen(false); }}>Join</button>}
+                    {current_user && (
+                        <div className="user" onClick={() => setopen(!open)}>
+                            <img src={current_user.img || '/images/noavtar.jpeg'} alt="avatar" />
+                            <span>{current_user?.username}</span>
+                            {open && (
+                                <div className="options">
+                                    <Link className='link' to={`/profile/${current_user._id}`}>Profile</Link>
+                                    {current_user.isSeller && (
+                                        <>
+                                            <Link className='link' to='/mygigs'>Gigs</Link>
+                                            <Link className='link' to='/add'>Add New Gig</Link>
+                                        </>
+                                    )}
+                                    {current_user.isAdmin && <Link className='link' to='/admin'>Admin Panel</Link>}
+                                    <Link className='link' to='/orders'>Orders</Link>
+                                    <Link className='link' to='/messages'>Messages</Link>
+                                    <Link className='link' onClick={handleLogout}>Logout</Link>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -138,38 +147,16 @@ const Navbar = () => {
                 <>
                     <hr />
                     <div className="menu">
-                        <Link key={9983} className='link menulink' to='/'>
-                            Graphics & Design
-                        </Link>
-                        <Link key={9883} className='link menulink' to='/'>
-                            Video & Animation
-                        </Link>
-                        <Link key={9988} className='link menulink' to='/'>
-                            Writing & Translation
-                        </Link>
-                        <Link key={9981} className='link menulink' to='/'>
-                            AI Services
-                        </Link>
-                        <Link key={9982} className='link menulink' to='/'>
-                            Digital Marketing
-                        </Link>
-                        <Link key={9903} className='link menulink' to='/'>
-                            Music & Audio
-                        </Link>
-                        <Link key={99883} className='link menulink' to='/'>
-                            Programming & Tech
-                        </Link>
-                        <Link key={99083} className='link menulink' to='/'>
-                            Business
-                        </Link>
-                        <Link key={93983} className='link menulink' to='/'>
-                            Lifestyle
-                        </Link>
+                        {categories.map((c) => (
+                            <Link key={c.cat} className='link menulink' to={`/gigs?cat=${encodeURIComponent(c.cat)}`}>
+                                {c.label}
+                            </Link>
+                        ))}
                     </div>
                     <hr />
                 </>
             )}
-        </div >
+        </div>
     ]);
 }
 export default Navbar;

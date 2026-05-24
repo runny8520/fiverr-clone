@@ -35,6 +35,7 @@ const Messages = () => {
                 <div className="title">
                     <h1>Messages</h1>
                 </div>
+                <div className="table-wrapper">
                 <table>
                     <thead>
                         <tr>
@@ -46,7 +47,6 @@ const Messages = () => {
                     </thead>
                     <tbody>
                         {data.map((c) => (
-
                             <tr
                                 className={
                                     ((currentUser.isSeller && !c.readBySeller) ||
@@ -55,12 +55,8 @@ const Messages = () => {
                                 }
                                 key={c.id}
                             >
-                                {/* {console.log(c)} */}
                                 <td>{currentUser.isSeller ? c.buyerId : c.sellerId}</td>
                                 <td>
-                                    {/* <Link to={`/message/${c.id}`} className="link">
-                                        {c?.lastMessage?.substring(0, 100)}...
-                                    </Link> */}
                                     <Link to={`/message/${c.id}`} className="link">
                                         {c?.lastMessage?.substring(0, 100)}...
                                     </Link>
@@ -77,8 +73,8 @@ const Messages = () => {
                             </tr>
                         ))}
                     </tbody>
-                    <tfoot></tfoot>
                 </table>
+                </div>
             </div>}
         </div>
     ]);

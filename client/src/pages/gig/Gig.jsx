@@ -120,7 +120,7 @@ const Gig = () => {
                             </div>
                             <div className="item">
                                 <img src="/images/recycle.png" alt="" />
-                                <span>{data.rivisonNumber} Revisoins</span>
+                                <span>{data.revisionNumber} Revisions</span>
                             </div>
                         </div>
                         <div className="features">

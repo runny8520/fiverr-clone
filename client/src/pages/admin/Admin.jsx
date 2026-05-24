@@ -48,6 +48,7 @@ const Admin = () => {
         ) : errorUsers ? (
           "failed to load users"
         ) : (
+          <div className="table-wrapper">
           <table>
             <thead>
               <tr>
@@ -70,6 +71,7 @@ const Admin = () => {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

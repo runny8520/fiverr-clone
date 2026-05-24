@@ -1,0 +1,66 @@
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 260px;
+    max-width: 420px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    font-size: 14px;
+    font-weight: 500;
+    animation: slideUp 0.3s ease;
+
+    &--error {
+        background: #fff0f0;
+        border-left: 4px solid #e03e3e;
+        color: #c0392b;
+    }
+
+    &--success {
+        background: #f0fff6;
+        border-left: 4px solid #1dbf73;
+        color: #1a7a4a;
+    }
+
+    &--info {
+        background: #f0f4ff;
+        border-left: 4px solid #446ee7;
+        color: #2c4aab;
+    }
+
+    &__msg {
+        flex: 1;
+    }
+
+    &__close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1;
+        color: inherit;
+        opacity: 0.7;
+        padding: 0;
+        &:hover { opacity: 1; }
+    }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+@media (max-width: 480px) {
+    .toast {
+        bottom: 12px;
+        right: 12px;
+        left: 12px;
+        min-width: unset;
+        max-width: unset;
+    }
+}

@@ -1,32 +1,31 @@
 .featured {
-  height: 600px;
+  min-height: 500px;
   display: flex;
   justify-content: center;
   color: white;
   overflow: hidden;
-  background-position: center;
   background-image: url('hero2.webp');
-  // animation: change  infinite;
-  // animation-duration: 60s;
-  // background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  animation-delay: 0ms;
+  position: relative;
 
   .container {
-    width: 1400px;
+    width: 100%;
+    max-width: 1400px;
     display: flex;
     align-items: center;
-    position: absolute;
+    padding: 60px 24px;
+    box-sizing: border-box;
 
     .left {
-      margin-top: 45px;
+      max-width: 600px;
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 24px;
 
       h1 {
-        font-size: 50px;
+        font-size: clamp(28px, 5vw, 52px);
+        line-height: 1.2;
 
         span {
           font-style: italic;
@@ -46,55 +45,55 @@
           display: flex;
           align-items: center;
           gap: 10px;
+          flex: 1;
+          min-width: 0;
 
           img {
             width: 20px;
             height: 20px;
             margin: 10px;
+            flex-shrink: 0;
           }
 
           input {
             border: none;
             outline: none;
+            width: 100%;
+            padding: 4px 0;
 
-            &::placeholder {
-              color: gray;
-            }
+            &::placeholder { color: gray; }
           }
         }
 
         button {
-          width: 120px;
+          width: 100px;
           height: 50px;
           border: none;
           background-color: #1dbf73;
           color: white;
           cursor: pointer;
           font-weight: 400;
-          font-size: large;
+          font-size: 16px;
+          flex-shrink: 0;
         }
       }
 
       .popular {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 10px;
         font-family: 'Montserrat', 'sans-serif';
-        font-size: 16px/24px;
-
-        span {
-          width: max-content;
-        }
+        font-size: 14px;
 
         button {
-          width: max-content;
           color: white;
           border: 1px solid white;
           padding: 5px 10px;
           border-radius: 20px;
           background-color: transparent;
-          font-size: 14px;
-          font-family: 'Montserrat', 'sans-serif';
+          font-size: 13px;
+          cursor: pointer;
 
           &:hover {
             background: white;
@@ -106,26 +105,26 @@
   }
 }
 
-@keyframes change {
-  0% {
-    background-image: url('hero1.webp');
+@media (max-width: 768px) {
+  .featured {
+    min-height: 380px;
+    .container {
+      padding: 40px 16px;
+      .left {
+        gap: 18px;
+        .search {
+          button { width: 80px; font-size: 14px; }
+        }
+      }
+    }
   }
-  20% {
-    background-image: url('hero2.webp');
-  }
-  40% {
-    background-image: url('hero3.webp');
-  }
+}
 
-  60% {
-    background-image: url('hero4.webp');
-  }
-
-  80% {
-    background-image: url('hero5.webp');
-  }
-
-  100% {
-    background-image: url('hero6.webp');
+@media (max-width: 480px) {
+  .featured {
+    min-height: 320px;
+    .container {
+      padding: 30px 12px;
+    }
   }
 }

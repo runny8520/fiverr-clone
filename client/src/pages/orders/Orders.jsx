@@ -31,33 +31,38 @@ const Orders = () => {
             }
         }
     }
-    console.log(data);
     return ([
         <div className="orders">
             {isLoading ? "loading" : error ? "something went wrong" : <div className="container">
                 <div className="title">
                     <h1>Orders</h1>
                 </div>
+                <div className="table-wrapper">
                 <table>
+                    <thead>
                     <tr>
                         <th>Image</th>
                         <th>Title</th>
                         <th>Price</th>
                         <th>Contact</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     {data.map((order) => (
                         <tr key={order._id}>
                             <td>
-                                <img src={order.img} alt="" className="img" />
+                                <img src={order.img} alt="" />
                             </td>
                             <td>{order.title}</td>
-                            <td>{order.price}</td>
+                            <td>${order.price}</td>
                             <td>
-                                <img className="message" src="/images/message.png" alt="" onClick={() => handleContact(order)} />
+                                <img className="message" src="/images/message.png" alt="contact" onClick={() => handleContact(order)} />
                             </td>
                         </tr>
                     ))}
+                    </tbody>
                 </table>
+                </div>
             </div>}
         </div>
     ]);

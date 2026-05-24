@@ -44,6 +44,7 @@ function MyGigs() {
               </Link>
             )}
           </div>
+          <div className="table-wrapper">
           <table>
             <tbody>
             <tr>
@@ -59,13 +60,13 @@ function MyGigs() {
                   <img className="image" src={gig.cover} alt="" />
                 </td>
                 <td>{gig.title}</td>
-                <td>{gig.price}</td>
+                <td>${gig.price}</td>
                 <td>{gig.sales}</td>
                 <td>
                   <img
                     className="delete"
                     src="/images/delete.png"
-                    alt=""
+                    alt="delete"
                     onClick={() => handleDelete(gig._id)}
                   />
                 </td>
@@ -73,6 +74,7 @@ function MyGigs() {
             ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
     </div>

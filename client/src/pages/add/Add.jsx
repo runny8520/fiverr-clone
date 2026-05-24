@@ -107,6 +107,7 @@ const Add = () => {
                             type="text"
                             placeholder="e.g. One-page web design"
                             name="sortTitle"
+                            onChange={handlechange}
                         />
                         <label htmlFor="">Short Description</label>
                         <textarea

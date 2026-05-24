@@ -3,19 +3,14 @@
         background-color: #f1fdf7;
         display: flex;
         justify-content: center;
-        padding: 100px 90px;
+        padding: 80px 24px;
+        box-sizing: border-box;
 
         &.dark {
             background-color: rgb(13, 8, 77);
 
-            h1 {
-                color: white !important;
-            }
-
-            p {
-                color: white !important;
-                margin-bottom: 20px !important;
-            }
+            h1 { color: white !important; }
+            p  { color: white !important; margin-bottom: 20px !important; }
 
             .title {
                 color: white !important;
@@ -23,7 +18,6 @@
                 font-size: 14px !important;
                 font-family: sans-serif;
                 letter-spacing: 1px;
-
             }
 
             img {
@@ -42,44 +36,33 @@
                 margin: 20px 0px;
                 border: none;
                 width: max-content;
-
-                &:hover {
-                    opacity: 0.9;
-                }
+                &:hover { opacity: 0.9; }
             }
         }
 
         .container {
-            width: 1400px;
+            width: 100%;
+            max-width: 1400px;
             display: flex;
             align-items: center;
-            gap: 200px;
+            gap: 60px;
 
             .item {
                 display: flex;
                 flex-direction: column;
                 gap: 15px;
 
-                &:first-child {
-                    flex: 2;
-                }
+                &:first-child { flex: 2; }
+                &:last-child  { flex: 3; }
 
-                &:last-child {
-                    flex: 3;
-                    background-color: black;
-                }
-
-                h1 {
-                    font-weight: 500;
-                    margin-bottom: 10px;
-                }
+                h1 { font-weight: 500; margin-bottom: 10px; }
 
                 p {
-                    font-size: 18px;
+                    font-size: 16px;
                     font-weight: 300;
                     color: gray;
                     line-height: 28px;
-                    letter-spacing: 1px;
+                    letter-spacing: 0.5px;
                 }
 
                 .title {
@@ -87,50 +70,48 @@
                     align-items: center;
                     gap: 10px;
                     font-weight: 500;
+                    font-size: 16px;
 
-                    font-size: 18px;
-
-                    img {
-                        width: 24px;
-                        height: 24px;
-
-                    }
+                    img { width: 24px; height: 24px; }
                 }
 
-                video {
-                    width: 720px;
-                }
+                video { width: 100%; }
             }
         }
     }
 
     .logo_maker {
         background: #446ee7;
-        margin: 100px 90px;
-        height: 320px;
-        
+        margin: 60px 24px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-sizing: border-box;
+
         .items {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            justify-content: space-between;
             gap: 20px;
             font-family: 'Montserrat', 'sans-serif';
+            padding: 40px;
+
             .left {
-                width: 40%;
-                padding-left: 6%;
                 color: #fff;
+                flex: 1;
 
                 h1 {
                     font-weight: 700;
+                    font-size: clamp(22px, 3vw, 32px);
 
                     span {
                         font-weight: normal;
-                        font-family:Arial, Helvetica, sans-serif;
+                        font-family: Arial, Helvetica, sans-serif;
                     }
                 }
 
                 .first_para {
                     font-weight: 700;
-                    font-size: 30px;
+                    font-size: clamp(18px, 2.5vw, 26px);
 
                     .first_para_em {
                         font-weight: 600;
@@ -138,10 +119,7 @@
                     }
                 }
 
-                .second_para {
-                   
-                    font-size: 16px;
-                }
+                .second_para { font-size: 15px; margin: 10px 0; }
 
                 .logo_button {
                     color: #446ee7;
@@ -150,52 +128,52 @@
                     font-size: 16px;
                     border: none;
                     background-color: white;
-                    z-index: 4;
                     cursor: pointer;
                     font-weight: 300;
-                    position: absolute;
-                   
-                    &:hover {
-                        opacity: 0.8;
-                    }
+                    margin-top: 16px;
+                    display: inline-block;
+
+                    &:hover { opacity: 0.8; }
                 }
             }
 
             .right {
+                flex: 1;
+                display: flex;
+                justify-content: center;
 
                 img {
-                    width: 30%;
-                    height: 320px;
-                    transform: scalex(5);
-
+                    width: 100%;
+                    max-width: 300px;
+                    height: auto;
                 }
             }
         }
-
     }
 
     .explore {
         display: flex;
         justify-content: center;
-        padding: 100px 0px;
+        padding: 60px 24px;
+        box-sizing: border-box;
 
         .container {
-            width: 1400px;
+            width: 100%;
+            max-width: 1400px;
 
-            h1 {
-                color: #555;
-            }
+            h1 { color: #555; margin-bottom: 30px; }
 
             .items {
                 width: 100%;
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 flex-wrap: wrap;
+                gap: 20px;
                 font-family: 'Helvetica Neue', sans-serif;
 
                 .item {
-                    width: 250px;
-                    height: 150px;
+                    width: 150px;
+                    height: 130px;
                     display: flex;
                     flex-direction: column;
                     gap: 10px;
@@ -203,11 +181,11 @@
                     justify-content: center;
                     text-align: center;
                     cursor: pointer;
+                    padding: 10px;
+                    border-radius: 8px;
+                    transition: background 0.2s;
 
-                    img {
-                        width: 50px;
-                        height: 50px;
-                    }
+                    img { width: 50px; height: 50px; }
 
                     .line {
                         width: 50px;
@@ -216,11 +194,10 @@
                         transition: all .3s ease;
                     }
 
-                    span {
-                        font-weight: 300;
-                    }
+                    span { font-weight: 300; font-size: 13px; }
 
                     &:hover {
+                        background: #f1fdf7;
                         .line {
                             width: 80px;
                             background-color: #1dbf73;
@@ -233,41 +210,40 @@
 
     .secondslide {
         background-color: #f7f6f6;
-        padding: 50px 0px;
-        margin: 100px 0px;
+        padding: 40px 24px;
+        margin: 60px 0px;
+        box-sizing: border-box;
 
         .second_slider_heading {
-            font-size: 30px;
-            line-height: 3px;
-            letter-spacing: -0.2px;
+            font-size: clamp(20px, 3vw, 30px);
             font-weight: 900;
             display: flex;
             justify-content: flex-start;
-            padding-left: 90px;
             font-family: 'Montserrat', 'sans-serif';
+            margin-bottom: 20px;
         }
     }
 
     .last_hero {
-
-
-
         .items {
-            margin: 40px 78px;
+            margin: 40px 24px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
 
             .left {
                 position: absolute;
                 z-index: 2;
                 color: #f1fdf7;
-                margin-top: 7%;
-                padding-left: 100px;
-                font-size: 24px;
-                line-height: 56px;
-                span{
-                    font-family: 'Diphylleia', serif;
-                }
+                top: 50%;
+                transform: translateY(-50%);
+                padding-left: 40px;
+                font-size: clamp(16px, 2.5vw, 24px);
+                line-height: 1.6;
+
+                span { font-family: 'Diphylleia', serif; }
+
                 .last_hero_em {
-                    font-weight: 900;
                     font-weight: 500;
                     letter-spacing: 0.1px;
                 }
@@ -284,17 +260,63 @@
                     border: none;
                     width: max-content;
                     font-family: 'Montserrat', 'sans-serif';
-                    &:hover {
-                        opacity: 0.9;
-                    }
+                    &:hover { opacity: 0.9; }
                 }
             }
 
-            .right {
-                img {
-                    width: 100%;
-                    border-radius: 5px;
-                }
+            .right img {
+                width: 100%;
+                border-radius: 8px;
+                display: block;
+            }
+        }
+    }
+}
+
+/* ─── Tablet ─────────────────────── */
+@media (max-width: 900px) {
+    .home {
+        .features .container {
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .logo_maker .items {
+            flex-direction: column;
+            padding: 30px 20px;
+        }
+    }
+}
+
+/* ─── Mobile ─────────────────────── */
+@media (max-width: 600px) {
+    .home {
+        .features {
+            padding: 40px 16px;
+        }
+
+        .explore {
+            padding: 40px 16px;
+            .container .items .item {
+                width: 120px;
+                height: 110px;
+            }
+        }
+
+        .logo_maker {
+            margin: 40px 16px;
+            .items { padding: 24px 16px; }
+        }
+
+        .secondslide {
+            padding: 30px 16px;
+        }
+
+        .last_hero .items {
+            margin: 30px 16px;
+            .left {
+                padding-left: 16px;
+                font-size: 16px;
             }
         }
     }

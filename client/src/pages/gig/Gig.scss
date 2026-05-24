@@ -3,18 +3,21 @@
     justify-content: center;
 
     .container {
-        width: 1400px;
-        padding: 30px 0px;
+        width: 100%;
+        max-width: 1400px;
+        padding: 30px 24px;
         display: flex;
-        gap: 50px;
+        gap: 40px;
+        box-sizing: border-box;
 
         .left {
             flex: 2;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            min-width: 0;
 
-            .bradcrumbs {
+            .breadcrumbs {
                 font-weight: 300;
                 font-size: 13px;
                 color: #555;
@@ -29,22 +32,17 @@
                     width: 32px;
                     height: 32px;
                     border-radius: 50%;
+                    object-fit: cover;
                 }
 
-                span {
-                    font-size: 14px;
-                    font-weight: 500;
-                }
+                span { font-size: 14px; font-weight: 500; }
 
                 .stars {
                     display: flex;
                     gap: 5px;
                     align-items: center;
 
-                    img {
-                        width: 14px;
-                        height: 14px;
-                    }
+                    img { width: 14px; height: 14px; }
 
                     span {
                         font-size: 14px;
@@ -54,16 +52,13 @@
                 }
             }
 
-            .slider {
-                img {
-                    max-height: 500px;
-                    object-fit: contain;
-                }
+            .slider img {
+                max-height: 500px;
+                object-fit: contain;
+                width: 100%;
             }
 
-            h2 {
-                font-weight: 400;
-            }
+            h2 { font-weight: 400; }
 
             p {
                 font-weight: 300;
@@ -73,7 +68,7 @@
 
             .seller {
                 display: flex;
-                margin-top: 50px;
+                margin-top: 40px;
                 flex-direction: column;
                 gap: 20px;
 
@@ -81,10 +76,11 @@
                     display: flex;
                     align-items: center;
                     gap: 20px;
+                    flex-wrap: wrap;
 
                     img {
-                        width: 100px;
-                        height: 100px;
+                        width: 80px;
+                        height: 80px;
                         object-fit: cover;
                         border-radius: 50%;
                     }
@@ -99,10 +95,7 @@
                             gap: 5px;
                             align-items: center;
 
-                            img {
-                                width: 14px;
-                                height: 14px;
-                            }
+                            img { width: 14px; height: 14px; }
 
                             span {
                                 font-size: 14px;
@@ -114,14 +107,15 @@
                         button {
                             background: #fff;
                             border-radius: 5px;
-                            padding: 10px;
+                            padding: 8px 16px;
                             border: 1px solid gray;
+                            cursor: pointer;
                         }
                     }
                 }
 
                 .box {
-                    border-radius: 1px solid grey;
+                    border: 1px solid lightgray;
                     border-radius: 5px;
                     padding: 20px;
                     margin-top: 20px;
@@ -129,30 +123,25 @@
                     .items {
                         display: flex;
                         flex-wrap: wrap;
-                        justify-content: space-between;
+                        gap: 20px;
 
                         .item {
-                            gap: 10px;
-                            margin-bottom: 20px;
-                            width: 300px;
                             display: flex;
                             flex-direction: column;
+                            gap: 6px;
+                            min-width: 140px;
 
-                            .title {
-                                font-weight: 300;
-                            }
+                            .title { font-weight: 300; font-size: 13px; color: gray; }
                         }
                     }
 
                     hr {
                         height: 0;
                         border: 1px solid lightgray;
-                        margin-bottom: 20px;
+                        margin: 16px 0;
                     }
                 }
             }
-
-
         }
 
         .right {
@@ -164,43 +153,34 @@
             border-radius: 5px;
             gap: 20px;
             position: sticky;
-            top: 150px;
+            top: 120px;
             height: max-content;
-            max-height: 500px;
 
             .price {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
 
-                h2 {
-                    font-weight: 300;
-                }
-
-                h3 {
-                    font-weight: 500;
-                }
+                h2 { font-weight: 300; }
+                h3 { font-weight: 500; }
             }
 
-            p {
-                color: gray;
-                margin: 10px 0px;
-            }
+            p { color: gray; margin: 0; }
 
             .details {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 font-size: 14px;
+                flex-wrap: wrap;
+                gap: 10px;
 
                 .item {
                     display: flex;
                     align-items: center;
-                    gap: 10px;
+                    gap: 8px;
 
-                    img {
-                        width: 20px;
-                    }
+                    img { width: 18px; }
                 }
             }
 
@@ -215,44 +195,59 @@
                     gap: 10px;
                     font-weight: 300;
                     color: gray;
-                    margin-bottom: 5px;
 
-                    img {
-                        width: 14px;
-                    }
+                    img { width: 14px; }
                 }
             }
 
             button {
                 background-color: #1dbf73;
-                padding: 10px;
+                padding: 12px;
                 color: white;
                 font-weight: 500;
                 border: none;
-                font-size: 18px;
+                font-size: 16px;
                 cursor: pointer;
+                border-radius: 5px;
+                width: 100%;
 
+                &:hover { background-color: #19a863; }
             }
         }
 
         .loader {
             margin: auto;
-            border: 8px solid #fff;
-            border-radius: 90%;
+            border: 8px solid #f0f0f0;
+            border-radius: 50%;
             border-top: 8px solid #1dbf73;
             width: 45px;
             height: 45px;
-            animation: spinner 2s linear infinite;
+            animation: spinner 1.2s linear infinite;
         }
 
         @keyframes spinner {
-            0% {
-                transform: rotate(0deg);
-            }
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    }
+}
 
-            100% {
-                transform: rotate(360deg);
-            }
+/* ─── Tablet ───────────── */
+@media (max-width: 1024px) {
+    .gig .container {
+        gap: 24px;
+        .right { position: relative; top: 0; }
+    }
+}
+
+/* ─── Mobile ───────────── */
+@media (max-width: 768px) {
+    .gig .container {
+        flex-direction: column;
+        padding: 20px 16px;
+
+        .right {
+            position: static;
         }
     }
 }
