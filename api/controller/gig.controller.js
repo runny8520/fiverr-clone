@@ -7,7 +7,6 @@ export const createGig = async (req, res, next) => {
     userId: req.userId,
     ...req.body
   })
-  console.log(req.userId);
   try {
     const savedGig = await newGig.save();
     res.status(201).json(savedGig);
@@ -28,6 +27,22 @@ export const deleteGig = async (req, res, next) => {
   }
 };
 
+export const updateGig = async (req, res, next) => {
+  try {
+    const gig = await Gig.findById(req.params.id);
+    if (!gig) return next(createError(404, "Gig not found"));
+    if (gig.userId !== req.userId && !req.isAdmin) return next(createError(403, 'you can update only your gig'));
+    const updatedGig = await Gig.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+    res.status(200).json(updatedGig);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getGig = async (req, res, next) => {
   try {
     const gig = await Gig.findById(req.params.id);
@@ -40,6 +55,7 @@ export const getGig = async (req, res, next) => {
 
 export const getGigs = async (req, res, next) => {
   const q = req.query;
+  const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const filters = {
     ...(q.userId && { userId: q.userId }),
     ...(q.cat && { cat: q.cat }),
@@ -49,11 +65,18 @@ export const getGigs = async (req, res, next) => {
         ...(q.max && { $lte: q.max }),
       },
     }),
-    ...(q.search && { title: { $regex: q.search, $options: "i" } }),
+    ...(q.search && { title: { $regex: escapeRegex(q.search), $options: "i" } }),
   };
   try {
-    const gigs = await Gig.find(filters).sort({ [q.sort]: -1 });
-    res.status(200).send(gigs);
+    const page = parseInt(q.page) || 1;
+    const limit = parseInt(q.limit) || 20;
+    const skip = (page - 1) * limit;
+
+    const [gigs, total] = await Promise.all([
+      Gig.find(filters).sort({ [q.sort || 'sales']: -1 }).skip(skip).limit(limit),
+      Gig.countDocuments(filters),
+    ]);
+    res.status(200).json({ gigs, total, page, pages: Math.ceil(total / limit) });
   } catch (err) {
     next(err);
   }

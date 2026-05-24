@@ -5,36 +5,36 @@ import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import { Link, useParams } from "react-router-dom";
 import Reviews from "../../components/reviews/Reviews";
+import { SkeletonText } from "../../components/skeleton/Skeleton";
 const Gig = () => {
     const { id } = useParams();
-    // console.log(id);
     const { isLoading, error, data } = useQuery({
-        queryKey: ['gig'],
+        queryKey: ['gig', id],
         queryFn: () =>
             newRequest.get(`/gigs/single/${id}`)
-                .then((res) => {
-                    return res.data;
-                })
+                .then((res) => res.data)
     });
-    const userId=data?.userId;
+    const userId = data?.userId;
     const { isLoading: isLoadingUser, error: errorUser, data: dataUser } = useQuery({
-        queryKey: ['user'],
+        queryKey: ['user', userId],
         queryFn: () =>
             newRequest.get(`/users/${userId}`)
-                .then((res) => {
-                    return res.data;    
-                }),enabled:!!userId,
+                .then((res) => res.data),
+        enabled: !!userId,
     });
-    // console.log(dataUser);
-     console.log(data);
     return ([
-        <div className="gig">
-            {isLoading ? <div className="loader"></div> : error ? <h4>Something Went Wrong</h4> :
+        <div className="gig" key="gig">
+            {isLoading ? (
+                <div className="container">
+                    <div className="left"><SkeletonText lines={6} /></div>
+                    <div className="right"><SkeletonText lines={4} /></div>
+                </div>
+            ) : error ? <h4 style={{textAlign:"center",color:"red",padding:"40px"}}>Something Went Wrong</h4> :
                 <div className="container">
                     <div className="left">
-                        <span className="breadcrumbs">FIVERR &gt; GRAPHICS & DESIGN &gt;</span>
+                        <span className="breadcrumbs">FIVERR &gt; {data.cat?.toUpperCase()} &gt;</span>
                         <h1>{data.title}</h1>
-                        {isLoadingUser ? "loading" : errorUser ? "something gone wrong" : 
+                        {isLoadingUser ? <SkeletonText lines={1} /> : errorUser ? "something gone wrong" : 
                         <div className="user">
                             <img src={dataUser.img||"/images/noavtar.jpeg"} alt="" className="pp" />
                             <span>{dataUser.username}</span>

@@ -11,8 +11,9 @@ function MyGigs() {
   const { isLoading, error, data } = useQuery({
     queryKey: ["myGigs"],
     queryFn: () =>
-      newRequest.get(`/gigs?userId=${currentUser._id}`).then((res,req) => {
-        return res.data;
+      newRequest.get(`/gigs?userId=${currentUser._id}`).then((res) => {
+        const d = res.data;
+        return d?.gigs || (Array.isArray(d) ? d : []);
       }),
   });
   
@@ -52,7 +53,7 @@ function MyGigs() {
               <th>Title</th>
               <th>Price</th>
               <th>Sales</th>
-              <th>Action</th>
+              <th>Actions</th>
             </tr>
             {data.map((gig) => (
               <tr key={gig._id}>
@@ -62,11 +63,15 @@ function MyGigs() {
                 <td>{gig.title}</td>
                 <td>${gig.price}</td>
                 <td>{gig.sales}</td>
-                <td>
+                <td className="actions-cell">
+                  <Link to={`/edit/${gig._id}`} className="link">
+                    <img className="edit" src="/images/edit.png" alt="edit" title="Edit" />
+                  </Link>
                   <img
                     className="delete"
                     src="/images/delete.png"
                     alt="delete"
+                    title="Delete"
                     onClick={() => handleDelete(gig._id)}
                   />
                 </td>

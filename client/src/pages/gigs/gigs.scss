@@ -127,3 +127,30 @@
         align-items: flex-start;
     }
 }
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 30px 0 10px;
+
+    button {
+        background: #1dbf73;
+        color: white;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 500;
+
+        &:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        &:hover:not(:disabled) { background: #19a863; }
+    }
+
+    span { color: #555; font-size: 14px; }
+}

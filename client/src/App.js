@@ -12,6 +12,9 @@ import Gigs from "./pages/gigs/Gigs";
 import Home from './pages/home/Home';
 import Pay from './pages/pay/Pay';
 import Success from './pages/success/Success';
+import Profile from './pages/profile/Profile';
+import EditGig from './pages/editGig/EditGig';
+import NotFound from './pages/notFound/NotFound';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -46,66 +49,24 @@ function App() {
       path: "/",
       element: <Layout></Layout>,
       children: [
-        {
-          path: "/",
-          element: <Home />
-        },
-        {
-          path: "/gigs",
-          element: <Gigs></Gigs>
-        },
-        {
-          path: "gig/:id",
-          element: <Gig />
-        },
-        {
-          path: "/orders",
-          element: <Orders />
-        },
-        {
-          path: "/mygigs",
-          element: <MyGigs />
-        },
-        {
-          path: "/add",
-          element: <Add />
-        },
-        {
-          path: "/messages",
-          element: <Messages />
-        },
-        {
-          path: "/message/:id",
-          element: <Message />
-        },
-        {
-          path: "/login",
-          element: <Login />
-        },
-        {
-          path: "/register",
-          element: <Register />
-        },
-        {
-          path: "/pay/:id",
-          element: <Pay />
-        },
-        {
-          path: "/success",
-          element: <Success />
-        },
-        {
-          path: "/becomeSeller",
-          element: <BecomeSeller />
-        },
-        {
-          path: "/becomeSeller2",
-          element: <BecomeSeller2 />
-        },
-        {
-          path: "/admin",
-          element: <Admin />
-        },
+        { path: "/",            element: <Home /> },
+        { path: "/gigs",        element: <Gigs /> },
+        { path: "gig/:id",      element: <Gig /> },
+        { path: "/orders",      element: <Orders /> },
+        { path: "/mygigs",      element: <MyGigs /> },
+        { path: "/add",         element: <Add /> },
+        { path: "/edit/:id",    element: <EditGig /> },
+        { path: "/profile/:id", element: <Profile /> },
+        { path: "/messages",    element: <Messages /> },
+        { path: "/message/:id", element: <Message /> },
+        { path: "/login",       element: <Login /> },
+        { path: "/register",    element: <Register /> },
+        { path: "/pay/:id",     element: <Pay /> },
+        { path: "/success",     element: <Success /> },
+        { path: "/becomeSeller",  element: <BecomeSeller /> },
+        { path: "/becomeSeller2", element: <BecomeSeller2 /> },
+        { path: "/admin",       element: <Admin /> },
+        { path: "*",            element: <NotFound /> },
       ]
     }
   ]);
